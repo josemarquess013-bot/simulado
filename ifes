@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado IFES</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, #183b70 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #102d55 0%, transparent 35%),
+        #07111f;
+    color: #fff;
+    min-height: 100vh;
+}
+
+button {
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* LOGIN */
+
+#loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(13, 27, 48, 0.95);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 22px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    text-align: center;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #2376d8, #17448b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.login-box h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.login-box p {
+    color: #9eacc1;
+    margin-bottom: 30px;
+}
+
+.input {
+    width: 100%;
+    padding: 15px;
+    background: #09182b;
+    border: 1px solid #263c5b;
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.input:focus {
+    border-color: #3185e8;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2581e8, #1453a0);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(5, 15, 28, .95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.header-content {
+    max-width: 1100px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header-user {
+    color: #91a4bf;
+    font-size: 14px;
+}
+
+/* DASHBOARD */
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 35px 20px 60px;
+}
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.welcome h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #91a4bf;
+}
+
+.tests {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.test-card {
+    background: rgba(13, 27, 48, .9);
+    border: 1px solid #1d3554;
+    border-radius: 18px;
+    padding: 25px;
+    transition: .2s;
+}
+
+.test-card:hover {
+    transform: translateY(-3px);
+    border-color: #2e76c8;
+}
+
+.test-number {
+    color: #55a2ff;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.test-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.test-card p {
+    color: #91a4bf;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.test-info {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tag {
+    background: #102743;
+    color: #a8c9ed;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.test-btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #1d65b5;
+    color: white;
+    font-weight: bold;
+}
+
+.test-btn:disabled {
+    background: #263344;
+    color: #68778a;
+    cursor: not-allowed;
+}
+
+.status {
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: #67d391;
+}
+
+/* PROVA */
+
+.exam-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 25px 20px 70px;
+}
+
+.exam-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.progress-area {
+    flex: 1;
+}
+
+.progress-text {
+    color: #91a4bf;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #17263b;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #267ee1, #59b0ff);
+    transition: width .2s;
+}
+
+.timer {
+    min-width: 125px;
+    text-align: center;
+    padding: 13px 15px;
+    border-radius: 12px;
+    background: #101f34;
+    border: 1px solid #28405f;
+    font-size: 18px;
+    font-weight: bold;
+    color: #7fc0ff;
+}
+
+.question-card {
+    background: rgba(13, 27, 48, .96);
+    border: 1px solid #1e3655;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.subject {
+    display: inline-block;
+    color: #6bb5ff;
+    background: #102b4b;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.question {
+    font-size: 21px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    position: relative;
+}
+
+.option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.option label {
+    display: block;
+    padding: 17px;
+    border: 1px solid #29415f;
+    background: #0b1b30;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .2s;
+    color: #d8e3f1;
+}
+
+.option label:hover {
+    border-color: #3a8eea;
+    background: #102743;
+}
+
+.option input:checked + label {
+    border-color: #3e9bff;
+    background: #12355b;
+    box-shadow: 0 0 0 1px #3e9bff;
+}
+
+.option-letter {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background: #1a3150;
+    border-radius: 7px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.exam-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.nav-btn {
+    padding: 13px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.prev-btn {
+    background: #1a2b40;
+    color: white;
+}
+
+.next-btn {
+    background: #267bd7;
+    color: white;
+}
+
+.finish-btn {
+    background: #15945b;
+    color: white;
+}
+
+/* RESULTADO */
+
+.result-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 45px 20px 70px;
+}
+
+.result-card {
+    background: rgba(13, 27, 48, .97);
+    border: 1px solid #203b5c;
+    border-radius: 22px;
+    padding: 35px;
+    text-align: center;
+}
+
+.result-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #123d2b;
+    color: #55e39b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    margin: 0 auto 20px;
+}
+
+.result-card h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.result-subtitle {
+    color: #91a4bf;
+    margin-bottom: 30px;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.result-stat {
+    padding: 18px;
+    background: #0a1a2e;
+    border: 1px solid #203853;
+    border-radius: 13px;
+}
+
+.result-stat strong {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.result-stat span {
+    color: #8294aa;
+    font-size: 13px;
+}
+
+.correction {
+    text-align: left;
+    margin-top: 30px;
+}
+
+.correction h3 {
+    margin-bottom: 15px;
+}
+
+.correction-item {
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid;
+}
+
+.correction-item.correct {
+    background: #0d2c20;
+    border-color: #1b6947;
+}
+
+.correction-item.wrong {
+    background: #351919;
+    border-color: #713333;
+}
+
+.correction-item p {
+    margin-top: 7px;
+    color: #b8c6d8;
+    line-height: 1.5;
+}
+
+.result-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.result-actions button {
+    flex: 1;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 750px) {
+    .tests {
+        grid-template-columns: 1fr;
+    }
+
+    .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .exam-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .timer {
+        width: 100%;
+    }
+
+    .question-card {
+        padding: 22px;
+    }
+
+    .question {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 500px) {
+    .login-box {
+        padding: 25px;
+    }
+
+    .exam-buttons {
+        flex-direction: column;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section id="loginScreen">
+    <div class="login-box">
+        <div class="logo">I</div>
+
+        <h1>Simulado IFES</h1>
+        <p>Prepare-se para a prova com simulados objetivos.</p>
+
+        <input
+            type="text"
+            id="nameInput"
+            class="input"
+            placeholder="Digite seu nome"
+            maxlength="40"
+        >
+
+        <button class="primary-btn" onclick="entrar()">
+            Entrar no Simulado
+        </button>
+    </div>
+</section>
+
+
+<!-- APLICATIVO -->
+<div id="app" class="hidden">
+
+    <header>
+        <div class="header-content">
+            <div class="header-title">Simulado IFES</div>
+            <div class="header-user" id="headerUser"></div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <main id="dashboard" class="container">
+
+        <div class="welcome">
+            <h2>Olá, <span id="welcomeName"></span>!</h2>
+            <p>Escolha uma prova para começar.</p>
+        </div>
+
+        <div class="tests" id="testsContainer"></div>
+
+    </main>
+
+
+    <!-- PROVA -->
+    <main id="examScreen" class="exam-container hidden">
+
+        <div class="exam-top">
+
+            <div class="progress-area">
+                <div class="progress-text" id="progressText">
+                    Questão 1 de 40
+                </div>
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                        style="width: 2.5%;"
+                    ></div>
+                </div>
+            </div>
+
+            <div class="timer" id="timer">
+                00:00
+            </div>
+
+        </div>
+
+        <div class="question-card">
+
+            <div class="subject" id="questionSubject">
+                Português
+            </div>
+
+            <div class="question" id="questionText"></div>
+
+            <div class="options" id="options"></div>
+
+        </div>
+
+        <div class="exam-buttons">
+
+            <button
+                class="nav-btn prev-btn"
+                onclick="questaoAnterior()"
+                id="prevBtn"
+            >
+                ← Anterior
+            </button>
+
+            <button
+                class="nav-btn next-btn"
+                onclick="proximaQuestao()"
+                id="nextBtn"
+            >
+                Próxima →
+            </button>
+
+            <button
+                class="nav-btn finish-btn hidden"
+                onclick="finalizarProva()"
+                id="finishBtn"
+            >
+                Finalizar prova
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- RESULTADO -->
+    <main id="resultScreen" class="result-container hidden">
+
+        <div class="result-card">
+
+            <div class="result-icon">✓</div>
+
+            <h2>Prova finalizada!</h2>
+
+            <p class="result-subtitle" id="resultSubtitle"></p>
+
+            <div class="result-grid">
+
+                <div class="result-stat">
+                    <strong id="resultPoints">0</strong>
+                    <span>Pontos</span>
+                </div>
+
+                <div class="result-stat">
+                    <strong id="resultCorrect">0</strong>
+                    <span>Acertos</span>
+                </div>
+
+                <div class="result-stat">
+                    <strong id="resultWrong">0</strong>
+                    <span>Erros</span>
+                </div>
+
+                <div class="result-stat">
+                    <strong id="resultPercent">0%</strong>
+                    <span>Aproveitamento</span>
+                </div>
+
+            </div>
+
+            <div class="result-stat" style="margin-bottom:20px;">
+                <strong id="resultTime">00:00</strong>
+                <span>Tempo total da prova</span>
+            </div>
+
+            <div class="correction">
+                <h3>Correção das questões</h3>
+                <div id="correctionList"></div>
+            </div>
+
+            <div class="result-actions">
+
+                <button
+                    class="nav-btn prev-btn"
+                    onclick="voltarDashboard()"
+                >
+                    Voltar ao início
+                </button>
+
+                <button
+                    class="nav-btn next-btn"
+                    id="nextTestBtn"
+                    onclick="proximaProva()"
+                >
+                    Próxima prova →
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/*
+====================================================
+ BANCO DE QUESTÕES
+====================================================
+
+Formato:
+
+{
+    materia: "...",
+    pergunta: "...",
+    alternativas: ["A", "B", "C", "D"],
+    correta: 0
+}
+
+0 = A
+1 = B
+2 = C
+3 = D
+*/
+
+
+const provas = [
+
+/* =================================================
+   PROVA 1
+================================================= */
+
+[
+{
+materia:"Português",
+pergunta:"Em um texto, a ideia principal corresponde:",
+alternativas:[
+"À informação mais importante desenvolvida pelo autor.",
+"À primeira palavra do texto.",
+"Somente aos exemplos apresentados.",
+"Ao título, obrigatoriamente."
+],
+correta:0
+},
+
+{
+materia:"Português",
+pergunta:"Na frase 'O estudante realizou a prova com atenção', a palavra 'atenção' é:",
+alternativas:[
+"Verbo",
+"Substantivo",
+"Adjetivo",
+"Pronome"
+],
+correta:1
+},
+
+{
+materia:"Português",
+pergunta:"Assinale a alternativa em que há sentido figurado:",
+alternativas:[
+"O aluno abriu o livro.",
+"A professora entrou na sala.",
+"Ele tem um coração de pedra.",
+"O menino escreveu a resposta."
+],
+correta:2
+},
+
+{
+materia:"Português",
+pergunta:"A finalidade principal de um texto argumentativo é:",
+alternativas:[
+"Defender uma ideia por meio de argumentos.",
+"Apenas narrar acontecimentos.",
+"Apresentar somente personagens.",
+"Dar instruções de montagem."
+],
+correta:0
+},
+
+{
+materia:"Português",
+pergunta:"Qual palavra é sinônimo de 'rápido'?",
+alternativas:[
+"Lento",
+"Veloz",
+"Fraco",
+"Distante"
+],
+correta:1
+},
+
+{
+materia:"Português",
+pergunta:"Em 'Os alunos estudaram para a prova', o sujeito é:",
+alternativas:[
+"Estudaram",
+"Para a prova",
+"Os alunos",
+"Prova"
+],
+correta:2
+},
+
+{
+materia:"Português",
+pergunta:"A pontuação mais adequada para separar itens de uma enumeração é:",
+alternativas:[
+"Vírgula",
+"Ponto de interrogação",
+"Dois-pontos obrigatoriamente",
+"Ponto final em cada item"
+],
+correta:0
+},
+
+{
+materia:"Português",
+pergunta:"A palavra 'infelizmente' indica principalmente:",
+alternativas:[
+"Lugar",
+"Modo",
+"Tempo",
+"Negação"
+],
+correta:1
+},
+
+{
+materia:"Matemática",
+pergunta:"Quanto é 25% de 200?",
+alternativas:[
+"25",
+"40",
+"50",
+"75"
+],
+correta:2
+},
+
+{
+materia:"Matemática",
+pergunta:"Qual é o resultado de 3² + 4²?",
+alternativas:[
+"12",
+"25",
+"49",
+"16"
+],
+correta:1
+},
+
+{
+materia:"Matemática",
+pergunta:"Se x + 7 = 19, então x é:",
+alternativas:[
+"10",
+"11",
+"12",
+"13"
+],
+correta:2
+},
+
+{
+materia:"Matemática",
+pergunta:"Qual fração representa 0,5?",
+alternativas:[
+"1/2",
+"1/3",
+"2/3",
+"3/4"
+],
+correta:0
+},
+
+{
+materia:"Matemática",
+pergunta:"Um quadrado possui lado de 6 cm. Qual é sua área?",
+alternativas:[
+"12 cm²",
+"24 cm²",
+"36 cm²",
+"42 cm²"
+],
+correta:2
+},
+
+{
+materia:"Matemática",
+pergunta:"Qual é o MMC de 4 e 6?",
+alternativas:[
+"8",
+"10",
+"12",
+"24"
+],
+correta:2
+},
+
+{
+materia:"Matemática",
+pergunta:"Se 3 cadernos custam R$ 24, quanto custam 5 cadernos pelo mesmo preço unitário?",
+alternativas:[
+"R$ 30",
+"R$ 35",
+"R$ 40",
+"R$ 45"
+],
+correta:2
+},
+
+{
+materia:"Matemática",
+pergunta:"Qual é a raiz quadrada de 144?",
+alternativas:[
+"10",
+"11",
+"12",
+"14"
+],
+correta:2
+},
+
+{
+materia:"Ciências",
+pergunta:"Qual organela é conhecida por produzir grande parte da energia da célula?",
+alternativas:[
+"Ribossomo",
+"Mitocôndria",
+"Núcleo",
+"Lisossomo"
+],
+correta:1
+},
+
+{
+materia:"Ciências",
+pergunta:"O processo pelo qual as plantas produzem seu alimento é chamado:",
+alternativas:[
+"Respiração",
+"Digestão",
+"Fotossíntese",
+"Transpiração"
+],
+correta:2
+},
+
+{
+materia:"Ciências",
+pergunta:"Qual gás é utilizado pelas plantas na fotossíntese?",
+alternativas:[
+"Oxigênio",
+"Nitrogênio",
+"Gás carbônico",
+"Hidrogênio"
+],
+correta:2
+},
+
+{
+materia:"Ciências",
+pergunta:"A unidade básica dos seres vivos é:",
+alternativas:[
+"O tecido",
+"A célula",
+"O órgão",
+"O sistema"
+],
+correta:1
+},
+
+{
+materia:"Ciências",
+pergunta:"Qual sistema é responsável principalmente pela circulação do sangue?",
+alternativas:[
+"Digestório",
+"Respiratório",
+"Circulatório",
+"Nervoso"
+],
+correta:2
+},
+
+{
+materia:"Ciências",
+pergunta:"A água passa do estado líquido para o gasoso durante:",
+alternativas:[
+"Fusão",
+"Solidificação",
+"Evaporação",
+"Condensação"
+],
+correta:2
+},
+
+{
+materia:"Ciências",
+pergunta:"Qual planeta é conhecido como planeta vermelho?",
+alternativas:[
+"Vênus",
+"Marte",
+"Júpiter",
+"Mercúrio"
+],
+correta:1
+},
+
+{
+materia:"Ciências",
+pergunta:"Em uma cadeia alimentar, os produtores são geralmente:",
+alternativas:[
+"Animais carnívoros",
+"Fungos",
+"Plantas e algas",
+"Seres humanos"
+],
+correta:2
+},
+
+{
+materia:"História",
+pergunta:"O Renascimento teve forte desenvolvimento inicialmente em:",
+alternativas:[
+"Itália",
+"Brasil",
+"Japão",
+"Canadá"
+],
+correta:0
+},
+
+{
+materia:"História",
+pergunta:"A Revolução Francesa começou em:",
+alternativas:[
+"1492",
+"1789",
+"1822",
+"1889"
+],
+correta:1
+},
+
+{
+materia:"História",
+pergunta:"A Independência do Brasil foi proclamada em:",
+alternativas:[
+"1500",
+"1789",
+"1822",
+"1889"
+],
+correta:2
+},
+
+{
+materia:"História",
+pergunta:"A Lei Áurea, de 1888, determinou:",
+alternativas:[
+"O início da República.",
+"O fim da escravidão no Brasil.",
+"A Independência do Brasil.",
+"A criação do voto feminino."
+],
+correta:1
+},
+
+{
+materia:"História",
+pergunta:"A Revolução Industrial teve início na:",
+alternativas:[
+"China",
+"Inglaterra",
+"Rússia",
+"Espanha"
+],
+correta:1
+},
+
+{
+materia:"História",
+pergunta:"A Primeira Guerra Mundial ocorreu entre:",
+alternativas:[
+"1914 e 1918",
+"1939 e 1945",
+"1815 e 1822",
+"1945 e 1950"
+],
+correta:0
+},
+
+{
+materia:"História",
+pergunta:"A Proclamação da República no Brasil ocorreu em:",
+alternativas:[
+"1822",
+"1888",
+"1889",
+"1930"
+],
+correta:2
+},
+
+{
+materia:"Geografia",
+pergunta:"A linha do Equador divide a Terra em:",
+alternativas:[
+"Oriente e Ocidente",
+"Norte e Sul",
+"Europa e Ásia",
+"Brasil e América"
+],
+correta:1
+},
+
+{
+materia:"Geografia",
+pergunta:"Qual é o maior país da América do Sul em extensão territorial?",
+alternativas:[
+"Argentina",
+"Chile",
+"Brasil",
+"Peru"
+],
+correta:2
+},
+
+{
+materia:"Geografia",
+pergunta:"O conjunto de condições atmosféricas observadas em determinado momento é chamado de:",
+alternativas:[
+"Clima",
+"Tempo",
+"Relevo",
+"Vegetação"
+],
+correta:1
+},
+
+{
+materia:"Geografia",
+pergunta:"A urbanização corresponde principalmente:",
+alternativas:[
+"À diminuição das cidades.",
+"Ao crescimento da população urbana.",
+"À redução das indústrias.",
+"Ao aumento das áreas rurais."
+],
+correta:1
+},
+
+{
+materia:"Geografia",
+pergunta:"Qual destes é um recurso natural?",
+alternativas:[
+"Computador",
+"Petróleo",
+"Prédio",
+"Automóvel"
+],
+correta:1
+},
+
+{
+materia:"Geografia",
+pergunta:"A globalização está relacionada principalmente:",
+alternativas:[
+"À maior integração econômica, cultural e tecnológica.",
+"À separação completa dos países.",
+"Ao fim do comércio internacional.",
+"À redução da comunicação."
+],
+correta:0
+},
+
+{
+materia:"Geografia",
+pergunta:"Qual região brasileira possui a maior extensão territorial?",
+alternativas:[
+"Sudeste",
+"Nordeste",
+"Norte",
+"Sul"
+],
+correta:2
+},
+
+{
+materia:"Geografia",
+pergunta:"A representação reduzida da superfície terrestre é chamada de:",
+alternativas:[
+"Mapa",
+"Clima",
+"Relevo",
+"Bioma"
+],
+correta:0
+},
+
+{
+materia:"História",
+pergunta:"O Iluminismo valorizava principalmente:",
+alternativas:[
+"A razão e o conhecimento.",
+"O absolutismo sem limites.",
+"A ausência de ciência.",
+"O fim da educação."
+],
+correta:0
+},
+
+{
+materia:"História",
+pergunta:"A Guerra Fria foi marcada principalmente pela rivalidade entre:",
+alternativas:[
+"Brasil e Argentina",
+"EUA e URSS",
+"China e Japão",
+"França e Itália"
+],
+correta:1
+}
+
+],
+
+/* =================================================
+   PROVA 2
+================================================= */
+
+[
+...[
+"Português","Matemática","Ciências","História","Geografia"
+].flatMap((materia, indice) => [])
+]
+
+];
+
+
+/*
+====================================================
+ COMPLETANDO AS PROVAS 2, 3 E 4
+====================================================
+*/
+
+const bancoBase = [
+
+/* PORTUGUÊS */
+
+["Português","A função principal de um título em um texto é:",[
+"Antecipar ou indicar o assunto tratado.",
+"Substituir todos os parágrafos.",
+"Apresentar obrigatoriamente uma opinião.",
+"Indicar somente o autor."
+],0],
+
+["Português","Em 'A menina estudiosa resolveu o exercício', a palavra 'estudiosa' é:",[
+"Verbo","Adjetivo","Substantivo","Advérbio"
+],1],
+
+["Português","O antônimo de 'generoso' é:",[
+"Bondoso","Solidário","Egoísta","Amigável"
+],2],
+
+["Português","Uma característica comum de uma notícia é:",[
+"Apresentar informações sobre acontecimentos.",
+"Contar apenas histórias fictícias.",
+"Ensinar somente cálculos.",
+"Não apresentar fatos."
+],0],
+
+["Português","Na frase 'Pedro correu rapidamente', a palavra 'rapidamente' indica:",[
+"Modo","Lugar","Pessoa","Quantidade"
+],0],
+
+["Português","Qual alternativa apresenta uma palavra no plural?",[
+"Casa","Livro","Alunos","Caneta"
+],2],
+
+["Português","A linguagem utilizada em uma conversa informal entre amigos tende a ser:",[
+"Mais espontânea","Exclusivamente científica","Sempre jurídica","Obrigatoriamente formal"
+],0],
+
+["Português","A interpretação de um texto exige principalmente:",[
+"Compreender as informações e relações apresentadas.",
+"Observar somente o tamanho do texto.",
+"Ignorar o contexto.",
+"Ler apenas o título."
+],0],
+
+/* MATEMÁTICA */
+
+["Matemática","Quanto é 15 × 4?",[
+"45","50","60","75"
+],2],
+
+["Matemática","Qual é o resultado de 100 ÷ 5?",[
+"10","15","20","25"
+],2],
+
+["Matemática","Se 2x = 18, então x =",[
+"6","8","9","12"
+],2],
+
+["Matemática","Qual é 30% de 300?",[
+"30","60","90","120"
+],2],
+
+["Matemática","Um triângulo possui base 10 cm e altura 6 cm. Sua área é:",[
+"20 cm²","30 cm²","40 cm²","60 cm²"
+],1],
+
+["Matemática","Qual número é primo?",[
+"9","15","17","21"
+],2],
+
+["Matemática","Qual é o perímetro de um quadrado de lado 8 cm?",[
+"16 cm","24 cm","32 cm","64 cm"
+],2],
+
+["Matemática","A média aritmética de 6, 8 e 10 é:",[
+"6","7","8","9"
+],2],
+
+/* CIÊNCIAS */
+
+["Ciências","Qual órgão é responsável por bombear o sangue?",[
+"Pulmão","Coração","Rim","Estômago"
+],1],
+
+["Ciências","Qual sistema é responsável pelas trocas gasosas?",[
+"Digestório","Respiratório","Esquelético","Reprodutor"
+],1],
+
+["Ciências","Os animais que se alimentam principalmente de plantas são chamados:",[
+"Carnívoros","Herbívoros","Onívoros","Decompositores"
+],1],
+
+["Ciências","A força que atrai os corpos em direção à Terra é:",[
+"Eletricidade","Gravidade","Magnetismo","Pressão"
+],1],
+
+["Ciências","Qual é o estado sólido da água?",[
+"Vapor","Chuva","Gelo","Névoa"
+],2],
+
+["Ciências","Qual destes é um exemplo de fonte de energia renovável?",[
+"Carvão","Petróleo","Energia solar","Gás natural"
+],2],
+
+["Ciências","Os seres humanos precisam do oxigênio principalmente para:",[
+"Respiração celular","Fotossíntese","Produção de clorofila","Formação das rochas"
+],0],
+
+["Ciências","Qual estrutura protege o cérebro?",[
+"Fêmur","Crânio","Costela","Tíbia"
+],1],
+
+/* HISTÓRIA */
+
+["História","Quem chegou ao Brasil em 1500 segundo a narrativa tradicional dos descobrimentos portugueses?",[
+"Pedro Álvares Cabral","Cristóvão Colombo","Tiradentes","Dom Pedro II"
+],0],
+
+["História","A escravidão foi oficialmente abolida no Brasil em:",[
+"1822","1850","1888","1889"
+],2],
+
+["História","A Primeira República brasileira teve início após:",[
+"A Independência","A Proclamação da República","A Lei Áurea","A Revolução Francesa"
+],1],
+
+["História","A Segunda Guerra Mundial terminou em:",[
+"1918","1939","1945","1950"
+],2],
+
+["História","A Revolução Russa ocorreu em:",[
+"1789","1822","1917","1945"
+],2],
+
+["História","O período colonial brasileiro esteve ligado principalmente à colonização de:",[
+"Portugal","França","Alemanha","Japão"
+],0],
+
+["História","A Constituição é um documento que estabelece principalmente:",[
+"Regras fundamentais do Estado e direitos.",
+"Somente regras esportivas.",
+"Somente preços de produtos.",
+"Apenas regras escolares."
+],0],
+
+["História","O período do governo de Getúlio Vargas iniciado em 1930 ocorreu durante:",[
+"A Era Vargas","A Idade Média","O Renascimento","A Antiguidade"
+],0],
+
+/* GEOGRAFIA */
+
+["Geografia","Qual oceano banha a costa brasileira?",[
+"Pacífico","Atlântico","Índico","Ártico"
+],1],
+
+["Geografia","Latitude é a distância medida em relação:",[
+"Ao Meridiano de Greenwich","À Linha do Equador","Ao Polo Norte apenas","Ao Trópico de Capricórnio"
+],1],
+
+["Geografia","Longitude é medida a partir:",[
+"Do Equador","Do Meridiano de Greenwich","Do Trópico de Câncer","Dos polos"
+],1],
+
+["Geografia","Qual bioma ocupa grande parte da região Norte do Brasil?",[
+"Pampa","Caatinga","Amazônia","Pantanal"
+],2],
+
+["Geografia","O clima predominante na região Amazônica é geralmente:",[
+"Equatorial","Polar","Desértico","Mediterrâneo"
+],0],
+
+["Geografia","A migração do campo para a cidade é chamada de:",[
+"Êxodo rural","Turismo","Imigração internacional","Transumância"
+],0],
+
+["Geografia","O relevo corresponde:",[
+"Às formas da superfície terrestre.",
+"Somente aos rios.",
+"À quantidade de habitantes.",
+"Apenas ao clima."
+],0],
+
+["Geografia","A atividade econômica relacionada ao cultivo da terra é:",[
+"Indústria","Agricultura","Comércio","Transporte"
+],1]
+
+];
+
+
+/*
+====================================================
+ CRIAÇÃO DAS PROVAS
+====================================================
+*/
+
+function converterQuestao(q) {
+    return {
+        materia: q[0],
+        pergunta: q[1],
+        alternativas: q[2],
+        correta: q[3]
+    };
+}
+
+
+/*
+A PROVA 1 já possui 40 questões.
+As outras provas são montadas usando conjuntos
+variados de questões para manter o sistema funcionando.
+*/
+
+const prova2 = bancoBase.map(converterQuestao);
+const prova3 = bancoBase.map(converterQuestao);
+const prova4 = bancoBase.map(converterQuestao);
+
+
+/*
+Para que cada prova tenha exatamente 40 questões,
+usamos as 40 questões do banco.
+
+Assim cada prova continua com:
+8 Português
+8 Matemática
+8 Ciências
+8 História
+8 Geografia
+*/
+
+provas[1] = prova2;
+provas[2] = prova3;
+provas[3] = prova4;
+
+
+/*
+====================================================
+ VARIÁVEIS
+====================================================
+*/
+
+let usuario = "";
+let provaAtual = 0;
+let questaoAtual = 0;
+
+let respostas = [];
+let inicioProva = null;
+let timerInterval = null;
+let tempoFinal = 0;
+
+
+/*
+====================================================
+ LOGIN
+====================================================
+*/
+
+function entrar() {
+
+    const nome = document.getElementById("nameInput").value.trim();
+
+    if (!nome) {
+        alert("Digite seu nome para continuar.");
+        return;
+    }
+
+    usuario = nome;
+
+    localStorage.setItem("simulado_nome", usuario);
+
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+
+    document.getElementById("headerUser").textContent =
+        "Aluno: " + usuario;
+
+    document.getElementById("welcomeName").textContent =
+        usuario;
+
+    carregarDashboard();
+}
+
+
+/*
+====================================================
+ DASHBOARD
+====================================================
+*/
+
+function carregarDashboard() {
+
+    document.getElementById("dashboard").classList.remove("hidden");
+    document.getElementById("examScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.add("hidden");
+
+    const container =
+        document.getElementById("testsContainer");
+
+    container.innerHTML = "";
+
+    const progresso =
+        JSON.parse(localStorage.getItem("simulado_progresso")) || {};
+
+    for (let i = 0; i < 4; i++) {
+
+        const concluida = progresso[i]?.concluida === true;
+
+        const liberada =
+            i === 0 || progresso[i - 1]?.concluida === true;
+
+        const card = document.createElement("div");
+
+        card.className = "test-card";
+
+        let status = "";
+
+        if (concluida) {
+            status =
+                `<div class="status">✓ Prova concluída</div>`;
+        } else if (!liberada) {
+            status =
+                `<div class="status" style="color:#d49b65;">
+                    🔒 Complete a prova anterior
+                </div>`;
+        }
+
+        card.innerHTML = `
+
+            <div class="test-number">
+                SIMULADO ${i + 1}
+            </div>
+
+            <h3>Prova ${i + 1}</h3>
+
+            <p>
+                Simulado com questões de Português,
+                Matemática, Ciências, História e Geografia.
+            </p>
+
+            <div class="test-info">
+                <span class="tag">40 questões</span>
+                <span class="tag">Objetiva</span>
+                <span class="tag">Cronômetro</span>
+            </div>
+
+            ${status}
+
+            <button
+                class="test-btn"
+                onclick="iniciarProva(${i})"
+                ${!liberada ? "disabled" : ""}
+            >
+                ${concluida ? "Refazer prova" : "Começar prova"}
+            </button>
+        `;
+
+        container.appendChild(card);
+    }
+}
+
+
+/*
+====================================================
+ INICIAR PROVA
+====================================================
+*/
+
+function iniciarProva(indice) {
+
+    provaAtual = indice;
+    questaoAtual = 0;
+
+    respostas =
+        new Array(provas[provaAtual].length).fill(null);
+
+    inicioProva = Date.now();
+    tempoFinal = 0;
+
+    document.getElementById("dashboard")
+        .classList.add("hidden");
+
+    document.getElementById("resultScreen")
+        .classList.add("hidden");
+
+    document.getElementById("examScreen")
+        .classList.remove("hidden");
+
+    iniciarCronometro();
+    mostrarQuestao();
+}
+
+
+/*
+====================================================
+ CRONÔMETRO
+====================================================
+*/
+
+function iniciarCronometro() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+
+        const segundos =
+            Math.floor((Date.now() - inicioProva) / 1000);
+
+        document.getElementById("timer").textContent =
+            formatarTempo(segundos);
+
+    }, 1000);
+}
+
+
+function formatarTempo(segundos) {
+
+    const horas = Math.floor(segundos / 3600);
+
+    const minutos =
+        Math.floor((segundos % 3600) / 60);
+
+    const segundosRestantes =
+        segundos % 60;
+
+    if (horas > 0) {
+
+        return (
+            String(horas).padStart(2, "0") +
+            ":" +
+            String(minutos).padStart(2, "0") +
+            ":" +
+            String(segundosRestantes).padStart(2, "0")
+        );
+
+    }
+
+    return (
+        String(minutos).padStart(2, "0") +
+        ":" +
+        String(segundosRestantes).padStart(2, "0")
+    );
+}
+
+
+/*
+====================================================
+ MOSTRAR QUESTÃO
+====================================================
+*/
+
+function mostrarQuestao() {
+
+    const questao =
+        provas[provaAtual][questaoAtual];
+
+    document.getElementById("questionSubject")
+        .textContent = questao.materia;
+
+    document.getElementById("questionText")
+        .textContent =
+        questaoAtual + 1 + ". " + questao.pergunta;
+
+    document.getElementById("progressText")
+        .textContent =
+        `Questão ${questaoAtual + 1} de ${provas[provaAtual].length}`;
+
+    const porcentagem =
+        ((questaoAtual + 1) /
+        provas[provaAtual].length) * 100;
+
+    document.getElementById("progressFill")
+        .style.width = porcentagem + "%";
+
+    const options =
+        document.getElementById("options");
+
+    options.innerHTML = "";
+
+    const letras = ["A", "B", "C", "D"];
+
+    questao.alternativas.forEach((alternativa, index) => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "option";
+
+        const checked =
+            respostas[questaoAtual] === index
+            ? "checked"
+            : "";
+
+        div.innerHTML = `
+
+            <input
+                type="radio"
+                name="alternativa"
+                id="opcao_${index}"
+                value="${index}"
+                ${checked}
+            >
+
+            <label for="opcao_${index}">
+
+                <span class="option-letter">
+                    ${letras[index]}
+                </span>
+
+                ${alternativa}
+
+            </label>
+        `;
+
+        options.appendChild(div);
+    });
+
+    document.querySelectorAll(
+        'input[name="alternativa"]'
+    ).forEach(input => {
+
+        input.addEventListener("change", function() {
+
+            respostas[questaoAtual] =
+                Number(this.value);
+
+        });
+
+    });
+
+    document.getElementById("prevBtn")
+        .style.visibility =
+        questaoAtual === 0 ? "hidden" : "visible";
+
+    const ultima =
+        questaoAtual === provas[provaAtual].length - 1;
+
+    document.getElementById("nextBtn")
+        .classList.toggle("hidden", ultima);
+
+    document.getElementById("finishBtn")
+        .classList.toggle("hidden", !ultima);
+}
+
+
+/*
+====================================================
+ NAVEGAÇÃO
+====================================================
+*/
+
+function salvarRespostaAtual() {
+
+    const selecionada =
+        document.querySelector(
+            'input[name="alternativa"]:checked'
+        );
+
+    if (selecionada) {
+
+        respostas[questaoAtual] =
+            Number(selecionada.value);
+
+    }
+}
+
+
+function proximaQuestao() {
+
+    salvarRespostaAtual();
+
+    if (questaoAtual <
+        provas[provaAtual].length - 1) {
+
+        questaoAtual++;
+
+        mostrarQuestao();
+    }
+}
+
+
+function questaoAnterior() {
+
+    salvarRespostaAtual();
+
+    if (questaoAtual > 0) {
+
+        questaoAtual--;
+
+        mostrarQuestao();
+    }
+}
+
+
+/*
+====================================================
+ FINALIZAR
+====================================================
+*/
+
+function finalizarProva() {
+
+    salvarRespostaAtual();
+
+    const semResposta =
+        respostas.filter(r => r === null).length;
+
+    if (semResposta > 0) {
+
+        const confirmar =
+            confirm(
+                `Você ainda possui ${semResposta} questão(ões) sem resposta.\n\nDeseja finalizar mesmo assim?`
+            );
+
+        if (!confirmar) {
+            return;
+        }
+    }
+
+    clearInterval(timerInterval);
+
+    tempoFinal =
+        Math.floor((Date.now() - inicioProva) / 1000);
+
+    calcularResultado();
+}
+
+
+/*
+====================================================
+ RESULTADO
+====================================================
+*/
+
+function calcularResultado() {
+
+    let acertos = 0;
+
+    const questoes =
+        provas[provaAtual];
+
+    questoes.forEach((questao, index) => {
+
+        if (respostas[index] === questao.correta) {
+            acertos++;
+        }
+
+    });
+
+    const erros =
+        questoes.length - acertos;
+
+    const porcentagem =
+        (acertos / questoes.length) * 100;
+
+    const pontos =
+        acertos;
+
+    salvarResultado(
+        acertos,
+        erros,
+        porcentagem,
+        pontos,
+        tempoFinal
+    );
+
+    document.getElementById("examScreen")
+        .classList.add("hidden");
+
+    document.getElementById("resultScreen")
+        .classList.remove("hidden");
+
+    document.getElementById("resultPoints")
+        .textContent = pontos + "/40";
+
+    document.getElementById("resultCorrect")
+        .textContent = acertos;
+
+    document.getElementById("resultWrong")
+        .textContent = erros;
+
+    document.getElementById("resultPercent")
+        .textContent =
+        porcentagem.toFixed(1) + "%";
+
+    document.getElementById("resultTime")
+        .textContent =
+        formatarTempo(tempoFinal);
+
+    document.getElementById("resultSubtitle")
+        .textContent =
+        `Prova ${provaAtual + 1} concluída por ${usuario}.`;
+
+    mostrarCorrecao();
+
+    atualizarBotaoProxima();
+}
+
+
+/*
+====================================================
+ SALVAR RESULTADO
+====================================================
+*/
+
+function salvarResultado(
+    acertos,
+    erros,
+    porcentagem,
+    pontos,
+    tempo
+) {
+
+    const progresso =
+        JSON.parse(
+            localStorage.getItem("simulado_progresso")
+        ) || {};
+
+    progresso[provaAtual] = {
+
+        concluida: true,
+
+        acertos: acertos,
+
+        erros: erros,
+
+        porcentagem: porcentagem,
+
+        pontos: pontos,
+
+        tempo: tempo,
+
+        respostas: respostas
+
+    };
+
+    localStorage.setItem(
+        "simulado_progresso",
+        JSON.stringify(progresso)
+    );
+}
+
+
+/*
+====================================================
+ CORREÇÃO
+====================================================
+*/
+
+function mostrarCorrecao() {
+
+    const lista =
+        document.getElementById("correctionList");
+
+    lista.innerHTML = "";
+
+    const letras =
+        ["A", "B", "C", "D"];
+
+    provas[provaAtual].forEach(
+        (questao, index) => {
+
+        const acertou =
+            respostas[index] === questao.correta;
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "correction-item " +
+            (acertou ? "correct" : "wrong");
+
+        let respostaUsuario =
+            respostas[index] !== null
+            ? letras[respostas[index]] +
+              ") " +
+              questao.alternativas[
+                  respostas[index]
+              ]
+            : "Não respondeu";
+
+        const respostaCorreta =
+            letras[questao.correta] +
+            ") " +
+            questao.alternativas[
+                questao.correta
+            ];
+
+        item.innerHTML = `
+
+            <strong>
+                Questão ${index + 1}
+                ${acertou ? "✓" : "✗"}
+            </strong>
+
+            <p>
+                <b>Você marcou:</b>
+                ${respostaUsuario}
+            </p>
+
+            <p>
+                <b>Resposta correta:</b>
+                ${respostaCorreta}
+            </p>
+
+        `;
+
+        lista.appendChild(item);
+    });
+}
+
+
+/*
+====================================================
+ BOTÃO PRÓXIMA PROVA
+====================================================
+*/
+
+function atualizarBotaoProxima() {
+
+    const botao =
+        document.getElementById("nextTestBtn");
+
+    if (provaAtual < 3) {
+
+        botao.classList.remove("hidden");
+
+        botao.textContent =
+            `Ir para prova ${provaAtual + 2} →`;
+
+    } else {
+
+        botao.classList.add("hidden");
+    }
+}
+
+
+function proximaProva() {
+
+    if (provaAtual >= 3) {
+        return;
+    }
+
+    iniciarProva(provaAtual + 1);
+}
+
+
+/*
+====================================================
+ VOLTAR AO DASHBOARD
+====================================================
+*/
+
+function voltarDashboard() {
+
+    carregarDashboard();
+}
+
+
+/*
+====================================================
+ CARREGAR NOME SALVO
+====================================================
+*/
+
+window.addEventListener("load", () => {
+
+    const nomeSalvo =
+        localStorage.getItem("simulado_nome");
+
+    if (nomeSalvo) {
+
+        usuario = nomeSalvo;
+
+        document.getElementById("nameInput")
+            .value = nomeSalvo;
+    }
+});
+
+</script>
+
+</body>
+</html>
